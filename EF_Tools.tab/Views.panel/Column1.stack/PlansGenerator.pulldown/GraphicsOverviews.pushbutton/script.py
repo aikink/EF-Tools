@@ -268,13 +268,16 @@ class MaterialParser:
                 override_settings.SetSurfaceForegroundPatternId(fg_pattern_id)
                 override_settings.SetSurfaceForegroundPatternColor(fg_color)
             else:
-                override_settings.SetSurfaceForegroundPatternColor(Color(255,255,255))
+                # Make the pattern invisible whenever no pattern is selected, instead of using SetSurfaceForegroundPatternColor. 
+                # This way the foreground pattern doesn't overlap the one in the background.
+                override_settings.SetSurfaceForegroundPatternVisible(False)
 
             if bg_pattern_id != ElementId(-1):
                 override_settings.SetSurfaceBackgroundPatternId(bg_pattern_id)
                 override_settings.SetSurfaceBackgroundPatternColor(bg_color)
             else:
-                override_settings.SetSurfaceBackgroundPatternColor(Color(255,255,255))
+                # Same as SetSurfaceForegroundPatternVisible
+                override_settings.SetSurfaceBackgroundPatternVisible(False)
 
             self.view.SetElementOverrides(region.Id, override_settings)
 
